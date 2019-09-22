@@ -139,7 +139,7 @@ def get_key_file_fernet(key_file):
     return Fernet(key)
 
 
-def main():
+def main(sys_args=None):
     parser = argparse.ArgumentParser(
         description='Simple symmetric encryption built on cryptography.',
         epilog=USAGE_EXAMPLE,
@@ -152,13 +152,13 @@ def main():
                         help='prompt for a password and use that instead of a key file')
     parser.add_argument('-t', '--prompt-text', action='store_true',
                         help='prompt for text to be encrypted/decrypted')
-    args = parser.parse_args()
+    args = parser.parse_args(args=sys_args)
     key_file = os.path.abspath(args.key_file)
 
     if args.command == 'generate':
-        print('Generating key: %s' % key_file)
+        _print_stdout('Generating key: %s' % key_file)
         generate_key_file(key_file)
-        sys.exit(0)
+        return
 
     if args.password:
         password = getpass.getpass()
@@ -167,7 +167,7 @@ def main():
         prompt = 'Text to %s: ' % args.command.title()
         text = getpass.getpass(prompt=prompt)
     else:
-        text = sys.stdin.read().strip()
+        text = _read_stdin()
 
     if args.command == 'encrypt':
         if args.password:
@@ -180,7 +180,15 @@ def main():
         else:
             output = decrypt_with_key_file(text, key_file)
 
-    print(output)
+    _print_stdout(output)
+
+
+def _read_stdin():
+    return sys.stdin.read()
+
+
+def _print_stdout(text):
+    print(text)
 
 
 if __name__ == '__main__':

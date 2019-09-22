@@ -1,10 +1,18 @@
 dist: bionic
 sudo: false
+
 language: python
 python:
-    - '2.7'
-    - '3.5'
-    - '3.6'
-    - '3.7'
-install: pip install tox-travis
+- '2.7'
+- '3.5'
+- '3.6'
+- '3.7'
+
+install: pip install tox-travis codecov
 script: tox
+after_success:
+- '[[ $TRAVIS_PYTHON_VERSION == 3.7 ]] && codecov -t $CODECOV_TOKEN'
+
+env:
+    global:
+        secure: BjeOtJG9lZJVnVrY6D+EIRLcxoVcXn6RiKhXULDBh+yKnCjXIFYr4vE9w2uC6qT4sFu7nu6DRI1B7xJvG1/EfA4k8c/6IdRL7Lf4T6sd6C4bdXB1KAepimiHrs2Dn5+pvNyrC0asgY72Rt/6SeZiXfFqRf5A9otkYdaKujUOcmqzD8QkbcriGSzj3SNhaWZymx2SaJLT13M51nPHErcqqPiqTSQj+Z98orC6CeuXWyd57gHZZTfBFJK2hWiMMNjlwx1Umw+fxam2OsansXPbLD6bVU0sM/uMKKwYF2I4+5efK4T4CJFRmn9BeKoxoEGWOY9lGTrM5GiFBXUmcur6ZeNuq6M8FWYHzNhhBKJs5Ba562hQ/VJoBlXo2lOovj2gT5dgUx43HwFFPFaR2ExDNK51c6NjCJdckU7QsOhZgsY1QAV9LOTfFleM3zdnLo7OdoWklz7mwvrEi2YvH8IshDyQ2wHmbAUA701X4qrqCZfONTW4u+saAMqy0MZm33zVUnM00icCVcOvJ+J4y0FVlPec4IqSZEfNmDa6ESNynHXVTZgPc0T40+oegUILX/ssv88S1Lrg3P/ObFJiAvEauaOqah3xEVW10KI7ir9dOeJuK2IaxKv+11QQAP82Rge4Hva1qp3N0QduC/fFNntYhMa90N/FUaLLM5O0xmDUUu8=

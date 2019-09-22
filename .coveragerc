@@ -1,0 +1,9 @@
+[run]
+branch = True
+source = raho
+
+[report]
+exclude_lines =
+    def _read_stdin..:
+    def _print_stdout.text.:
+    if __name__ == .__main__.:
