@@ -71,7 +71,7 @@ def decrypt_with_password(b64_encrypted_and_salt, password):
     try:
         b64_encrypted, base_64_salt = b64_encrypted_and_salt.split(',', 1)
         salt = urlsafe_b64decode(base_64_salt.encode())
-    except (ValueError, binascii.Error):
+    except (TypeError, ValueError, binascii.Error):
         raise ValueError('Invalid encrypted format')
     fernet = get_password_fernet(password, salt)
     return decrypt(b64_encrypted, fernet)
@@ -134,7 +134,7 @@ def get_key_file_fernet(key_file):
         b64_key = f.read()
     try:
         key = urlsafe_b64decode(b64_key)
-    except binascii.Error:
+    except (TypeError, binascii.Error):
         raise ValueError('Invalid key format')
     return Fernet(key)
 

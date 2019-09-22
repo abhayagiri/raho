@@ -100,6 +100,13 @@ def test_get_key_file_fernet(key_file):
     assert type(fernet) == Fernet
 
 
+def test_get_key_file_fernet_with_bad_format(new_key_file):
+    open(new_key_file, 'w').write('ABC')
+    with pytest.raises(ValueError) as e:
+        get_key_file_fernet(new_key_file)
+    assert str(e.value) == 'Invalid key format'
+
+
 def test_get_password_fernet():
     fernet = get_password_fernet('123456', b'salt')
     assert type(fernet) == Fernet
