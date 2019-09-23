@@ -1,4 +1,4 @@
-# Simple symmetric encryption built on cryptography
+# `raho`: Simple symmetric encryption built on cryptography
 
 [![Build Status](https://travis-ci.org/abhayagiri/raho.svg?branch=master)](https://travis-ci.org/abhayagiri/raho)
 [![codecov](https://codecov.io/gh/abhayagiri/raho/branch/master/graph/badge.svg)](https://codecov.io/gh/abhayagiri/raho)
@@ -57,72 +57,7 @@ And in your Python file:
 
 See `raho --help` for command-line usage examples.
 
-## Development
+## More information
 
-### Environment Setup
-
-Install `python3`, `tox`, `twine` and other dependencies:
-
-```sh
-sudo apt-get install -y curl git python3-dev python3-setuptools python3-wheel \
-    tox twine
-
-Install [pyenv](https://github.com/pyenv/pyenv-installer) (if not already
-installed):
-
-```sh
-curl https://pyenv.run | bash
-cat <<'EOF' >> "$HOME/.bashrc"
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-EOF
-source "$HOME/.bashrc"
-```
-
-Clone the source:
-
-```sh
-git clone https://github.com/abhayagiri/raho.git
-cd raho
-```
-
-Install the test Python versions with `pyenv`:
-
-```sh
-for v in $(cat .python-version); do
-    [ "$v" != "system" ] && pyenv install -s $v
-done
-```
-
-### Commands
-
-Test:
-
-```sh
-tox
-```
-
-Build:
-
-```sh
-python3 setup.py sdist bdist_wheel --universal
-```
-
-Test upload:
-
-```sh
-twine upload --repository-url https://test.pypi.org/legacy/ dist/*
-```
-
-Upload:
-
-```sh
-twine upload dist/*
-```
-
-Clean:
-
-```sh
-rm -rf __pycache__ .coverage .tox build coverage.xml dist *.egg-info *.pyc
-```
+- [Fernets and `cryptography`]([cryptography](https://cryptography.io/))
+- [Development Documentation](DEVELOPMENT.md)
