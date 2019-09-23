@@ -1,10 +1,10 @@
-# `raho`: Simple symmetric encryption built on cryptography
+# `raho`: Simple symmetric encryption
 
 [![Build Status](https://travis-ci.org/abhayagiri/raho.svg?branch=master)](https://travis-ci.org/abhayagiri/raho)
 [![codecov](https://codecov.io/gh/abhayagiri/raho/branch/master/graph/badge.svg)](https://codecov.io/gh/abhayagiri/raho)
 [![PyPI version](https://badge.fury.io/py/raho.svg)](https://pypi.org/project/raho/)
 
-`raho` is a simple wrapper library for the
+`raho` is a simplified wrapper library for the
 [cryptography](https://cryptography.io/) module.
 
 ## Installation

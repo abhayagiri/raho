@@ -147,7 +147,7 @@ def get_key_file_fernet(key_file):
 
 def main(sys_args=None):
     parser = argparse.ArgumentParser(
-        description='Simple symmetric encryption built on cryptography.',
+        description='Simple symmetric encryption.',
         epilog=USAGE_EXAMPLE,
         formatter_class=argparse.RawDescriptionHelpFormatter
     )

@@ -24,7 +24,7 @@ with open(path.join(here, 'raho.py'), encoding='utf-8') as f:
 setup(
     name='raho',
     version=version,
-    description='Simple symmetric encryption built on cryptography',
+    description='Simple symmetric encryption',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/abhayagiri/raho',
