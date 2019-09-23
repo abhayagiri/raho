@@ -36,15 +36,15 @@ def test_decrypt(fernet):
     assert decrypt(message, fernet) == 'camels are amongst us'
 
     message = 'A' + message[1:]
-    with pytest.raises(ValueError) as e:
+    with pytest.raises(DecryptError) as e:
         decrypt(message, fernet)
     assert str(e.value) == 'Invalid encrypted format or incorrect key'
 
-    with pytest.raises(ValueError) as e:
+    with pytest.raises(DecryptError) as e:
         decrypt('YWJjZA==', fernet)
     assert str(e.value) == 'Invalid encrypted format or incorrect key'
 
-    with pytest.raises(ValueError) as e:
+    with pytest.raises(DecryptError) as e:
         decrypt('12345', fernet)
     assert str(e.value) == 'Invalid encrypted format'
 
@@ -58,11 +58,11 @@ def test_decrypt_with_password():
     message = 'Z0FBQUFBQmRocDlJaU5uM1djdGVxMi1scVJKZHBSLW0tcmg3SlQ0S0R3eDB5Nlp0ZW1RUngwX1lHanJfLXpBZlJSd0xZWnZMemJLa2QwczdScU03NGlmRy04c2NaSE1IVWJYYXRkSXdySjhESll0VGpnQ2ltamM9,2LZKzeVnB-Wj2yzuOdX7Ng=='
     assert decrypt_with_password(message, 'sunshine') == 'they know about us!'
 
-    with pytest.raises(ValueError) as e:
+    with pytest.raises(DecryptError) as e:
         decrypt_with_password(message, '123456')
     assert str(e.value) == 'Invalid encrypted format or incorrect key'
 
-    with pytest.raises(ValueError) as e:
+    with pytest.raises(DecryptError) as e:
         decrypt_with_password('totally invalid', 'sunshine')
     assert str(e.value) == 'Invalid encrypted format'
 
@@ -102,7 +102,7 @@ def test_get_key_file_fernet(key_file):
 
 def test_get_key_file_fernet_with_bad_format(new_key_file):
     open(new_key_file, 'w').write('ABC')
-    with pytest.raises(ValueError) as e:
+    with pytest.raises(DecryptError) as e:
         get_key_file_fernet(new_key_file)
     assert str(e.value) == 'Invalid key format'
 

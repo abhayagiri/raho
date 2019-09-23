@@ -43,18 +43,22 @@ For more information on the supporting library, see https://cryptography.io/.
 DEFAULT_KEY_FILE = '.raho-key'
 
 
+class DecryptError(ValueError):
+    pass
+
+
 def decrypt(b64_encrypted, fernet):
     """Decrypt encrypted text.
 
-    A ValueError will be thrown when encrypted is invalid or the key is
+    A DecryptError will be thrown when encrypted is invalid or the key is
     incorrect."""
     try:
         encrypted = urlsafe_b64decode(b64_encrypted.encode())
         return fernet.decrypt(encrypted).decode()
     except (TypeError, binascii.Error):
-        raise ValueError('Invalid encrypted format')
+        raise DecryptError('Invalid encrypted format')
     except InvalidToken:
-        raise ValueError('Invalid encrypted format or incorrect key')
+        raise DecryptError('Invalid encrypted format or incorrect key')
 
 
 def decrypt_with_key_file(b64_encrypted, key_file):
@@ -66,13 +70,13 @@ def decrypt_with_key_file(b64_encrypted, key_file):
 def decrypt_with_password(b64_encrypted_and_salt, password):
     """Decrypt encrypted text with a password.
 
-    A ValueError will be thrown when encrypted is invalid or the password is
+    A DecryptError will be thrown when encrypted is invalid or the password is
     incorrect."""
     try:
         b64_encrypted, base_64_salt = b64_encrypted_and_salt.split(',', 1)
         salt = urlsafe_b64decode(base_64_salt.encode())
     except (TypeError, ValueError, binascii.Error):
-        raise ValueError('Invalid encrypted format')
+        raise DecryptError('Invalid encrypted format')
     fernet = get_password_fernet(password, salt)
     return decrypt(b64_encrypted, fernet)
 
@@ -135,7 +139,7 @@ def get_key_file_fernet(key_file):
     try:
         key = urlsafe_b64decode(b64_key)
     except (TypeError, binascii.Error):
-        raise ValueError('Invalid key format')
+        raise DecryptError('Invalid key format')
     return Fernet(key)
 
 
