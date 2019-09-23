@@ -152,12 +152,14 @@ def main(sys_args=None):
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
     parser.add_argument('command', choices=('generate', 'encrypt', 'decrypt'))
-    parser.add_argument('-k', '--key-file', default=DEFAULT_KEY_FILE,
-                        help='path to the key file')
+    parser.add_argument('-v', '--version', action='version',
+                        version='%(prog)s ' + VERSION)
     parser.add_argument('-p', '--password', action='store_true',
                         help='prompt for a password and use that instead of a key file')
     parser.add_argument('-t', '--prompt-text', action='store_true',
                         help='prompt for text to be encrypted/decrypted')
+    parser.add_argument('-k', '--key-file', default=DEFAULT_KEY_FILE,
+                        help='path to the key file')
     args = parser.parse_args(args=sys_args)
     key_file = os.path.abspath(args.key_file)
 
