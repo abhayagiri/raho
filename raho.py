@@ -11,6 +11,8 @@ import getpass
 import os
 import sys
 
+VERSION = '0.0.1'
+
 USAGE_EXAMPLE = """Example:
 
     $ raho generate

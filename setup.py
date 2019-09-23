@@ -1,5 +1,6 @@
 from io import open  # For python2 compatibility
 from os import path
+import re
 from setuptools import setup
 
 
@@ -9,10 +10,20 @@ here = path.abspath(path.dirname(__file__))
 with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
+# Get the version from raho.py
+with open(path.join(here, 'raho.py'), encoding='utf-8') as f:
+    version = None
+    for line in f.readlines():
+        matches = re.match(r"^VERSION = '(.+)'$", line)
+        if matches:
+            version = matches.group(1)
+            break
+    if not version:
+        raise Exception('Cannot find VERSION in raho.py')
 
 setup(
     name='raho',
-    version='0.0.1',
+    version=version,
     description='Simple symmetric encryption built on cryptography',
     long_description=long_description,
     long_description_content_type='text/markdown',
