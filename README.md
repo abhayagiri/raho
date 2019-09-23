@@ -59,5 +59,5 @@ See `raho --help` for command-line usage examples.
 
 ## More information
 
-- [Fernets and `cryptography`]([cryptography](https://cryptography.io/))
-- [Development Documentation](DEVELOPMENT.md)
+- [Fernets and `cryptography`](https://cryptography.io/)
+- [Development Documentation](https://github.com/abhayagiri/raho/blob/master/DEVELOPMENT.md)
